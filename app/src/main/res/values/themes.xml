@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.CloydAIVision" parent="Theme.Material3.DayNight.NoActionBar">
+        <item name="colorPrimary">#3F51B5</item>
+        <item name="colorOnPrimary">#FFFFFF</item>
+        <item name="colorContainer">#E8EAF6</item>
+
+        <item name="android:statusBarColor">?attr/colorSurface</item>
+        <item name="android:windowLightStatusBar">true</item>
+
+        <item name="textInputStyle">@style/Widget.Material3.TextInputLayout.OutlinedBox</item>
+    </style>
+</resources>

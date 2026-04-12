@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">Cloyd AI Vision</string>
+    <string name="label_api_key">OpenRouter API Key</string>
+    <string name="label_model">Model (e.g. google/gemini-3-flash-preview)</string>
+    <string name="label_image_path">Image Path</string>
+    <string name="label_system_prompt">System Prompt</string>
+    <string name="label_user_prompt">User Prompt</string>
+    <string name="default_model">google/gemini-3-flash-preview</string>
+    <string name="version_footer">Cloyd AI Vision v1.0.0 | Developed by Cloyd</string>
+</resources>

@@ -1,0 +1,26 @@
+# --- Private Cloyd Assets ---
+cloyd_key
+bigeye.png
+bigeye1.png
+
+# --- Project Housekeeping ---
+structure.txt
+gradlew.bat
+local.properties
+*.apk
+
+# --- Android / Gradle Gunk ---
+.gradle/
+build/
+captures/
+.externalNativeBuild/
+.cxx/
+*.iml
+.idea/
+
+# --- System Files ---
+*.class
+bin/
+gen/
+.DS_Store
+Thumbs.db
