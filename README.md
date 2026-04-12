@@ -36,6 +36,27 @@ Eufy identifies a generic "Vehicle." Our plugin identifies the specific make, mo
 * **OpenRouter Integration:** The plugin connects to OpenRouter, allowing for the selection of any supported model. While it defaults to Gemini 3 Flash Preview, the architecture is model-agnostic.
 * **Hobbyist-First Logic:** Built to work seamlessly within the Tasker ecosystem, providing the raw data necessary for complex automation flows.
 
+## 📱 Example Tasker Integration
+To help you get started, here is a standard logic flow for intercepting a Eufy notification and processing it with Cloyd AI Vision.
+
+### Profile: Eufy AI Verification
+* **Trigger:** Event > UI > Notification
+    * **Owner Application:** `eufy Security`
+    * **New Only:** `Checked`
+
+### Task: Process Camera Image
+1. **Variable Set:** `%image_path` to `/storage/emulated/0/EufyPicDir/last_alert.png` (or your specific Eufy save path).
+2. **Plugin: Cloyd AI Vision**
+    * **Configuration:** * **Model:** `google/gemini-3-flash-preview`
+        * **Prompt:** *"Identify if a human, pet, or vehicle is in the frame. Describe their orientation (e.g., facing house). If it is just rain, snow, or shadows, return NONE."*
+3. **If %response ~ \*NONE\***
+    * **AutoNotification Cancel:** Cancel the current Eufy notification (keeps your phone quiet for false positives).
+4. **Else If %response ~ \*Dog\***
+    * **Say:** *"The dog is %response."* (e.g., "The dog is sitting toward the house.")
+5. **Else If %response ~ \*Human\***
+    * **Say:** *"A person was detected: %response."*
+6. **End If**
+
 ## 🔧 Setup & Configuration
 
 To use this plugin, you need to download the application and configure it with an OpenRouter API key.
