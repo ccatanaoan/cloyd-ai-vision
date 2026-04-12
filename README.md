@@ -40,19 +40,24 @@ Eufy identifies a generic "Vehicle." Our plugin identifies the specific make, mo
 To help you get started, here is a standard logic flow for intercepting a Eufy notification and processing it with Cloyd AI Vision.
 
 ### Profile: Eufy AI Verification
-* **Trigger:** Event > UI > Notification
-    * **Owner Application:** `eufy Security`
-    * **New Only:** `Checked`
+* **Trigger:** Event > Plugin > AutoNotification > Intercept
+    * **Event Behaviour:** `True`
+    * **Notification Apps:** `eufy Security`
+    * **Notification Type:** `Only Created Notifications`
+    * **Get All Fields:** `True`
 
 ### Task: Process Camera Image
-1. **Variable Set:** `%image_path` to `/storage/emulated/0/EufyPicDir/last_alert.png` (or your specific Eufy save path).
+1. **File > Copy File:** * **From:** `%anpicture` 
+    * **To:** `CloydAIVision/temp_capture.jpg`
 2. **Plugin: Cloyd AI Vision**
-    * **Configuration:** * **Model:** `google/gemini-3-flash-preview`
-        * **Prompt:** *"Identify if a human, pet, or vehicle is in the frame. Describe their orientation (e.g., facing house). If it is just rain, snow, or shadows, return NONE."*
+    * **Configuration:** * **Image Path (Field):** `CloydAIVision/temp_capture.jpg`
+        * **Model (Field):** `google/gemini-3-flash-preview`
+        * **User Prompt (Field):** *"Identify if a human, pet, or vehicle is in the frame. Describe their orientation (e.g., facing house). If it is just rain, snow, or shadows, return NONE."*
 3. **If %response ~ \*NONE\***
-    * **AutoNotification Cancel:** Cancel the current Eufy notification (keeps your phone quiet for false positives).
+    * **Plugin: AutoNotification Cancel:** * **Id:** `%anid` 
+        * **Package:** `%anpackage` (Silences the false alert immediately)
 4. **Else If %response ~ \*Dog\***
-    * **Say:** *"The dog is %response."* (e.g., "The dog is sitting toward the house.")
+    * **Say:** *"The dog is %response."*
 5. **Else If %response ~ \*Human\***
     * **Say:** *"A person was detected: %response."*
 6. **End If**
@@ -81,7 +86,7 @@ To use this plugin, you need to download the application and configure it with a
     * **AI Model Selection:** * **Automatic Sync:** Once a valid API key is entered, the plugin automatically calls the OpenRouter API (`https://openrouter.ai/api/v1/models`) to fetch the current list of available models. 
         * **Search & Select:** You can search the dropdown to quickly select the best vision model (e.g., `google/gemini-3-flash-preview`).
         * **Manual Entry:** You can also free-text or copy-paste a specific model ID if you prefer a customized or newly released model not yet in the cached list.
-    * **Prompt:** Define what you want the AI to look for.
+    * **User Prompt:** Define what you want the AI to look for.
 * **Configuration Scope:**
     * Settings configured via the app shortcut (see `assets/image_4.jpg`) act as **Global Defaults**.
     * However, each Tasker Action can be customized **independently** (see `assets/image_3.jpg`), allowing for unique prompts and models per task (e.g., a highly detailed prompt for vehicle identification in a specific task vs. a general global prompt).
