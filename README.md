@@ -44,7 +44,6 @@ To help you get started, here is a standard logic flow for intercepting a Eufy n
     * **Event Behaviour:** `True`
     * **Notification Apps:** `eufy Security`
     * **Notification Type:** `Only Created Notifications`
-    * **Get All Fields:** `True`
 
 ### Task: Process Camera Image
 1. **File > Copy File:** * **From:** `%anpicture` 
@@ -54,8 +53,7 @@ To help you get started, here is a standard logic flow for intercepting a Eufy n
         * **Model (Field):** `google/gemini-3-flash-preview`
         * **User Prompt (Field):** *"Identify if a human, pet, or vehicle is in the frame. Describe their orientation (e.g., facing house). If it is just rain, snow, or shadows, return NONE."*
 3. **If %response ~ \*NONE\***
-    * **Plugin: AutoNotification Cancel:** * **Id:** `%anid` 
-        * **Package:** `%anpackage` (Silences the false alert immediately)
+    * **Plugin: AutoNotification Cancel:** * **Id:** `%anid` (Silences the false alert immediately)
 4. **Else If %response ~ \*Dog\***
     * **Say:** *"The dog is %response."*
 5. **Else If %response ~ \*Human\***
